@@ -3,6 +3,8 @@
 .widget-calendar {
     min-height: 350px;
     margin-bottom: $form-group-margin-bottom;
+    user-select: none;
+    -ms-user-select: none;
 
     .rbc-calendar {
         width: 100%;

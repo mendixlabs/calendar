@@ -51,7 +51,7 @@
     "@types/jasmine": "^3.3.4",
     "@types/karma": "^3.0.1",
     "@types/react": "^16.7.17",
-    "@types/react-big-calendar": "^0.20.1",
+    "@types/react-big-calendar": "^0.22.0",
     "@types/react-dnd": "^3.0.2",
     "@types/react-dnd-html5-backend": "^3.0.2",
     "@types/react-dom": "^16.0.11",
@@ -117,10 +117,9 @@
   },
   "dependencies": {
     "classnames": "2.2.6",
-    "date-arithmetic": "3.1.0",
-    "moment": "^2.23.0",
-    "react-big-calendar": "0.19.0",
-    "react-dnd": "2.6.0",
-    "react-dnd-html5-backend": "^5.0.1"
+    "date-arithmetic": "^3.1.0",
+    "moment": "^2.24.0",
+    "react-big-calendar": "https://github.com/Andries-Smit/react-big-calendar/releases/download/v0.22.1/react-big-calendar-0.22.1.tgz",
+    "react-resize-detector": "^4.2.0"
   }
 }

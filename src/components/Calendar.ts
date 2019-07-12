@@ -1,9 +1,11 @@
-import { CSSProperties, Component, ReactChild, createElement } from "react";
+import "../utils/polyfill";
+import { CSSProperties, Component, ReactChild, ReactNode, createElement } from "react";
 
 import { Alert } from "./Alert";
 import { Container, Style } from "../utils/namespaces";
-import * as classNames from "classnames";
-import * as BigCalendar from "react-big-calendar";
+import classNames from "classnames";
+
+import { Calendar as BigCalendar, momentLocalizer } from "react-big-calendar";
 import * as moment from "moment";
 import * as withDragAndDrop from "react-big-calendar/lib/addons/dragAndDrop";
 import CustomToolbar from "./Toolbar";
@@ -16,8 +18,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "../ui/Calendar.scss";
 import "../ui/CalendarLoader.scss";
 
-BigCalendar.momentLocalizer(moment);
-export const DragAndDropCalendar = withDragAndDrop(BigCalendar);
+const localizer = momentLocalizer(moment);
+const DragAndDropCalendar = withDragAndDrop(BigCalendar);
 
 export interface CalendarProps {
     alertMessage?: ReactChild;
@@ -125,7 +127,7 @@ class Calendar extends Component<CalendarProps> {
         return createElement(Alert, { className: "widget-calendar-alert" }, this.props.alertMessage);
     }
 
-    private renderCalendar() {
+    private renderCalendar(): ReactNode {
         const wrapToolbar = (injectedProps: HOCToolbarProps) =>
             (toolbarProps: Container.ToolbarProps) => createElement(CustomToolbar as any, { ...injectedProps, ...toolbarProps });
 
@@ -145,7 +147,8 @@ class Calendar extends Component<CalendarProps> {
             onRangeChange: this.onRangeChange,
             onSelectEvent: this.onSelectEvent,
             onSelectSlot: this.onSelectSlot,
-            views: [ "month", "day", "week", "work_week", "month", "agenda" ]
+            views: [ "month", "day", "week", "work_week", "month", "agenda" ],
+            localizer
         };
 
         if (this.props.loading) {
@@ -193,7 +196,7 @@ class Calendar extends Component<CalendarProps> {
         }
     }
 
-    private onEventResize = (_resizeType: string, eventInfo: Container.EventInfo) => {
+    private onEventResize = (eventInfo: Container.EventInfo) => {
         if (eventInfo.end.getDate() !== eventInfo.event.end.getDate() && this.props.editable && this.props.onEventResizeAction) {
             this.props.onEventResizeAction(eventInfo);
         }
